@@ -20,28 +20,28 @@ class Solution(object):
 	    	return i+1
 
 
-	def threeSum(self,nums):
-	    result = []
+	def threeSumClosest(self,nums,target):
+	    value = 10000000000
+	    min_value = 10000000000
 	    length = len(nums)
 	    self.QuickSort(nums,0,len(nums)-1)
 	    for i in xrange(0,length):
-	    	if (i==0 or nums[i]!=nums[i-1]):
+	    	#if (i==0 or nums[i]!=nums[i-1]):
 		        j = i+1
 		        k = length-1
-		        target = 0-nums[i]
 		        while j<k:
-		        	if nums[j]+nums[k] == target:
-		        		result.append([nums[i],nums[j],nums[k]])
-		        		while nums[j]==nums[j+1] and j+1<length-1:
-		        			j += 1
-		        		while nums[k]==nums[k-1] and k-1 > i:
-		        			k -= 1
-		        		j += 1
+		        	if abs(nums[i]+nums[j]+nums[k]-target) < value:
+		        		value = abs(nums[i]+nums[j]+nums[k]-target)
+		        		min_value = nums[i]+nums[j]+nums[k]
+		        		#while nums[j]==nums[j+1] and j+1<length-1:
+		        			#j += 1
+		        		#while nums[k]==nums[k-1] and k-1 > i:
+		        			#k -= 1
+		        		#j += 1
+		        		#k -= 1
+		        	elif nums[i]+nums[j]+nums[k] > target: #or (target < 0 and nums[i]+nums[j]+nums[k] < target):
 		        		k -= 1
-		        	elif nums[j]+nums[k] < target:
-		        		j += 1
 		        	else:
-		        		k -= 1
-	    return result
-
+		        		j += 1	
+	    return min_value
 
